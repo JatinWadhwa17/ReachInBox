@@ -2,14 +2,16 @@
 import { Button, Box, Typography, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Footer from "../footer";
+import { useDispatch, useSelector } from "react-redux";
+import { partnerApi } from "@/redux/loginSlice";
 
 export default function Login() {
   const router = useRouter();
-
-  const handleGoogleSignIn = () => {
-    // Redirect to Google sign-in page
-    // This should be handled by your backend or an OAuth provider
-    router.push("https://accounts.google.com/o/oauth2/auth");
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
+  const signIn = () => {
+    dispatch(partnerApi());
+    console.log(data?.login, "data>>>");
   };
 
   return (
@@ -34,7 +36,7 @@ export default function Login() {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleGoogleSignIn}
+            onClick={signIn}
             sx={{ mt: 3 }}
           >
             Sign Up with Google

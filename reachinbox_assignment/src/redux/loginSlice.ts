@@ -1,57 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface user {
-  username: string;
-  password: string;
-  token?: string | null;
-  data?: any | null;
-}
-
-interface userstate {
-  credentials: user | null;
-  isLoading: boolean;
-  isError: boolean;
-}
-
-const initialState: userstate = {
-  credentials: null,
-  isLoading: false,
-  isError: false,
+const initialState = {
+  dataarr: [],
 };
 
-export const loginApi = createAsyncThunk(
-  "get/loginApi",
-  async (values: user) => {
-    const gets = await axios.post(
-      "https://apistg.appnovahome.com/Account/Authenticate",
-      values
-    );
-    return gets.data;
-  }
-);
+export const partnerApi = createAsyncThunk("count/countApi", async () => {
+  const response = await axios.get(
+    "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://frontend.com",
+  );
+  console.log(response,'res');
+  return response;
+});
 
-const loginSlice = createSlice({
-  name: "login",
+const viewSlice = createSlice({
+  name: "totalCount",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.credentials = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(loginApi.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(loginApi.fulfilled, (state, action) => {
-        (state.isLoading = false), (state.credentials = action.payload);
-      })
-      .addCase(loginApi.rejected, (state) => {
-        state.isError = true;
-      });
+    builder.addCase(partnerApi.fulfilled, (state, action) => {
+      state.dataarr = action.payload;
+    });
   },
 });
 
-export default loginSlice.reducer;
-export const { logout } = loginSlice.actions;
+export default viewSlice.reducer;
