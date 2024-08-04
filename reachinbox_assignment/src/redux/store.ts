@@ -1,9 +1,9 @@
 "use client";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import viewReducer from './loginSlice'
+import getAllMailsReducer from './loginSlice'
 
 const rootreducer=combineReducers({
-  login:viewReducer
+  viewall:getAllMailsReducer
 })
 const store = configureStore({
  reducer:rootreducer
