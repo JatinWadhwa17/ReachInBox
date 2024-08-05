@@ -70,9 +70,17 @@ export default function Login() {
             variant="contained"
             color="secondary"
             sx={{ mt: 2 }}
-            onClick={() => router.push("../../app/routes/mainPage")}
+            onClick={() => router.push("/routes/mainPage")}
           >
             View Component
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ mt: 2 }}
+            onClick={() => router.push("/routes/mainPage")}
+          >
+            Login
           </Button>
         </Box>
       </Container>

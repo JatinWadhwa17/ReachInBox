@@ -4,38 +4,33 @@ import axios from "axios";
 const initialState = {
   dataarr: [],
   isLoading:false,
-  error:false,
+  error:false
 };
 
-export const getAllMailsApi = createAsyncThunk("count/countApi", async () => {
-  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiamF0aW42MjMyQGdtYWlsLmNvbSIsImlkIjoyNzcsImZpcnN0TmFtZSI6IkphdGluIiwibGFzdE5hbWUiOiJXYWRod2EifSwiaWF0IjoxNzIyNzkyNDY5LCJleHAiOjE3NTQzMjg0Njl9.SYHPgway6GXuixWTjHFsF2jGwISQps4CTk_PRD2QeWY'
+export const partnerApi = createAsyncThunk("count/countApi", async () => {
   const response = await axios.get(
-    "https://hiring.reachinbox.xyz/api/v1/onebox/list",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+    "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://frontend.com",
   );
   return response.data;
 });
 
-const getAllMailsSlice = createSlice({
+const viewSlice = createSlice({
   name: "totalCount",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAllMailsApi.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getAllMailsApi.fulfilled, (state, action) => {
+    builder.addCase(partnerApi.pending,(state)=>{
+      state.isLoading=true;
+    })
+    builder.addCase(partnerApi.fulfilled, (state, action) => {
       state.isLoading=false;
       state.dataarr = action.payload;
     });
-    builder.addCase(getAllMailsApi.rejected, (state) => {
-      state.error = true;
+    builder.addCase(partnerApi.rejected, (state) => {
+      state.isLoading=false;
+      state.error=true
     });
   },
 });
 
-export default getAllMailsSlice.reducer;
+export default viewSlice.reducer;

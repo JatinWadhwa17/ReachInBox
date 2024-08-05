@@ -16,7 +16,7 @@ const initialValues: val = {
   password: "",
 };
 
-const Login = () => {
+const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
@@ -91,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
