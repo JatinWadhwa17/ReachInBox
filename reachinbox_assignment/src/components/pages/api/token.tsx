@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ token });
     } else {
-      res.status(400).json({ error: "No redirect URL found" });
+      res.status(404).json({ error: "No redirect URL found" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

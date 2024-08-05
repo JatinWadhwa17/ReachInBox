@@ -2,35 +2,22 @@
 import { Button, Box, Typography, Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Footer from "../footer";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
-  const [token, setToken] = useState("");
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const response = await axios.get("../pages/api/token");
-        setToken(response.data.token);
-      } catch (error) {
-        console.error("Error fetching token:", error);
-      }
-    };
 
-    fetchToken();
-  }, []);
-  console.log(token, "token");
-
-  const signIn = () => {};
+  const signIn = () => {
+    const loginUrl =
+      "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://frontend.com";
+    window.location.href = loginUrl;
+  };
 
   useEffect(() => {
     console.log("useEffect is running");
 
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-
-    localStorage.setItem("authToken", token);
 
     console.log(urlParams, "urllllllll");
 
@@ -83,9 +70,9 @@ export default function Login() {
             variant="contained"
             color="secondary"
             sx={{ mt: 2 }}
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("../../app/routes/mainPage")}
           >
-            Sign In
+            View Component
           </Button>
         </Box>
       </Container>
